@@ -1,0 +1,12 @@
+---
+# defaults file for create-digitalocean-droplet
+
+droplet_size: "1gb"
+droplet_image: "ubuntu-16-04-x64"
+region: "nyc1"
+
+wait_timeout: 500
+unique_name: yes
+private_networking: no 
+backups_enabled: no
+
