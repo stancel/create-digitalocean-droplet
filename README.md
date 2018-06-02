@@ -57,29 +57,29 @@ Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
-`
+
 	- hosts: localhost ansible_connection=local ansible_python_interpreter=python
 	  vars_files:
 	    - vars/main.yml
 	  roles:
 	    - { role: stancel.create-digitalocean-droplet }
-`
+
 
 or 
 
-`
-- hosts: localhost ansible_connection=local ansible_python_interpreter=python 
-  vars:
-	host_name: "dev-marketing"
-	server_fqdn: "dev-marketing.processfast.com"
-	do_token: "{{ lookup('env', 'DO_API_TOKEN') }}"
-	ssh_key_ids:
-	  - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 
-	  - "{{ lookup('file', '~/.ssh/atl-server/id_rsa.pub') }}" 
-	droplet_size: "1gb"
-	droplet_image: "ubuntu-16-04-x64"
-	region: "nyc1"
-`
+
+	- hosts: localhost ansible_connection=local ansible_python_interpreter=python 
+	  vars:
+		host_name: "dev-marketing"
+		server_fqdn: "dev-marketing.processfast.com"
+		do_token: "{{ lookup('env', 'DO_API_TOKEN') }}"
+		ssh_key_ids:
+		  - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 
+		  - "{{ lookup('file', '~/.ssh/atl-server/id_rsa.pub') }}" 
+		droplet_size: "1gb"
+		droplet_image: "ubuntu-16-04-x64"
+		region: "nyc1"
+
 
 
 License
