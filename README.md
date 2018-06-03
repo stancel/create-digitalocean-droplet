@@ -32,11 +32,10 @@ The domain name entry that you would like to create a DNS entry for to have it d
 An environment variable called DO_API_TOKEN that holds the value of your DigitalOcean API key.
 
 
-`
-ssh_key_ids:
-  - "72:aa:ae:3a:62:4d:b4:3d:6a:c5:0f:17:f8:1f:ad:d2"
-  - "e4:1d:b2:d1:e1:42:c7:5c:b6:71:75:2b:f4:8d:bf:c7" 
-`
+`ssh_key_ids:`
+  `- "72:aa:ae:3a:62:4d:b4:3d:6a:c5:0f:17:f8:1f:ad:d2"`
+  `- "e4:1d:b2:d1:e1:42:c7:5c:b6:71:75:2b:f4:8d:bf:c7"`
+
 
 A list of any SSH key fingerprints that correspond to the SSH key(s) that you have uploaded to your DO account and would like to add to this droplet as it is created in order to allow access. You can find these fingerprints by going into your DO account settings, then the Security tab and either adding a SSH key and copying the fignerprint or copying a fingerprint of an already uploaded SSH key.
 
