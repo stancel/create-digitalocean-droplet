@@ -1,14 +1,13 @@
 ---
 # vars file for create-digitalocean-droplet
 
-host_name: "dev-marketing"
-server_fqdn: "dev-marketing.processfast.com"
+host_name: "your-hostname-here"
+server_fqdn: "yourdomainhere.com"
 
 do_token: "{{ lookup('env', 'DO_API_TOKEN') }}"
 
 ssh_key_ids:
-  - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}" 
-  - "{{ lookup('file', '~/.ssh/atl-server/id_rsa.pub') }}" 
+  #- "Put your DigitalOcean SSH Fingerprint here found in your account" 
 
 droplet_size: "1gb"
 droplet_image: "ubuntu-16-04-x64"

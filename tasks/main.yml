@@ -1,24 +1,18 @@
----
-# tasks file for create-digitalocean-droplet
-
 - name: "Create Droplet"
   digital_ocean: 
-   state: present
-   command: droplet
-   name: "{{ host_name }}"
-   size_id: "{{ droplet_size }}"
-   region_id: "{{ region }}"
-   image_id: "{{ droplet_image }}"
-   api_token: "{{ do_token }}"
-   wait_timeout: "{{ wait_timeout }}"
-   unique_name: "{{ unique_name }}"
-   private_networking: "{{ private_networking }}"
-   backups_enabled: "{{ backups_enabled }}"
-   ssh_key_ids: "{{ item }}"
-  with_items:
-    - "{{ ssh_key_ids }}"
+    state: present
+    command: droplet
+    name: "{{ host_name }}"
+    size_id: "{{ droplet_size }}"
+    region_id: "{{ region }}"
+    image_id: "{{ droplet_image }}"
+    api_token: "{{ do_token }}"
+    wait_timeout: "{{ wait_timeout }}"
+    unique_name: "{{ unique_name }}"
+    private_networking: "{{ private_networking }}"
+    backups_enabled: "{{ backups_enabled }}"
+    ssh_key_ids: "{{ ssh_keys|join(',') }}"
   register: my_droplet
-
 
 - name: "Print info about droplet"
   debug:
@@ -30,16 +24,17 @@
 
 - name: "Register DNS Entry with DigitalOcean"
   digital_ocean_domain: 
-   state: present
-   name: "{{ server_fqdn }}"
-   ip: "{{ my_droplet.droplet.ip_address }}"
-   api_token: "{{ do_token }}"
+    state: present
+    name: "{{ server_fqdn }}"
+    ip: "{{ my_droplet.droplet.ip_address }}"
+    #api_token: "{{ do_token }}"
 
 - name: "Add new host to our Ansible inventory"
   add_host:
     name: "{{ my_droplet.droplet.ip_address }}"
     #hostname: "{{ my_droplet.droplet.ip_address }}"
     groups: new_server
+    ansible_user: root
     #inventory_dir: '{{inventory_dir}}'
     #ansible_host: "{{ my_droplet.droplet.ip_address }}"
     #ansible_port: 22
@@ -50,6 +45,7 @@
     port: 22
     delay: 60
     timeout: 320
-    state: started    
-    
+    state: started
+
+
   
