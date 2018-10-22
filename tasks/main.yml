@@ -4,16 +4,16 @@
   digital_ocean: 
     state: present
     command: droplet
-    name: "{{ host_name }}"
-    size_id: "{{ droplet_size }}"
-    region_id: "{{ region }}"
-    image_id: "{{ droplet_image }}"
-    api_token: "{{ do_token }}"
-    wait_timeout: "{{ wait_timeout }}"
-    unique_name: "{{ unique_name }}"
-    private_networking: "{{ private_networking }}"
-    backups_enabled: "{{ backups_enabled }}"
-    ssh_key_ids: "{{ ssh_keys|join(',') }}"
+    name: "{{ create_digitalocean_droplet_host_name }}"
+    size_id: "{{ create_digitalocean_droplet_droplet_size }}"
+    region_id: "{{ create_digitalocean_droplet_region }}"
+    image_id: "{{ create_digitalocean_droplet_droplet_image }}"
+    api_token: "{{ create_digitalocean_droplet_do_token }}"
+    wait_timeout: "{{ create_digitalocean_droplet_wait_timeout }}"
+    unique_name: "{{ create_digitalocean_droplet_unique_name }}"
+    private_networking: "{{ create_digitalocean_droplet_private_networking }}"
+    backups_enabled: "{{ create_digitalocean_droplet_backups_enabled }}"
+    ssh_key_ids: "{{ create_digitalocean_droplet_ssh_keys|join(',') }}"
   register: my_droplet
 
 - name: "Print info about droplet"
@@ -27,7 +27,7 @@
 - name: "Register DNS Entry with DigitalOcean"
   digital_ocean_domain: 
     state: present
-    name: "{{ server_fqdn }}"
+    name: "{{ create_digitalocean_droplet_server_fqdn }}"
     ip: "{{ my_droplet.droplet.ip_address }}"
     #api_token: "{{ do_token }}"
 

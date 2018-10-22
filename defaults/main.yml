@@ -3,21 +3,22 @@
 
 
 # The size of your Droplet. See options in your DO account or their API documentation for a list
-droplet_size: "1gb"
+create_digitalocean_droplet_droplet_size: "1gb"
 
 # The droplet image to use. Here we are using a base Ubuntu 16.04 LTS image
-droplet_image: "ubuntu-16-04-x64"
+create_digitalocean_droplet_droplet_image: "ubuntu-16-04-x64"
 
 # The DO datacenter region for your droplet
-region: "nyc1"
+create_digitalocean_droplet_region: "nyc1"
 
-wait_timeout: 500
+create_digitalocean_droplet_wait_timeout: 500
 
 # Recommend keeping this setting. Makes the creation of the droplet idempotent.
-unique_name: yes
+create_digitalocean_droplet_unique_name: yes
 
 # DigitalOcean option for not charging bandwidth when speaking to other DO droplets
-private_networking: no 
+create_digitalocean_droplet_private_networking: no 
 
 # DigitalOcean option for backing up the droplet periodically
-backups_enabled: no
+create_digitalocean_droplet_backups_enabled: no
+
