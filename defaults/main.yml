@@ -3,10 +3,10 @@
 
 
 # The size of your Droplet. See options in your DO account or their API documentation for a list
-create_digitalocean_droplet_droplet_size: "1gb"
+create_digitalocean_droplet_droplet_size: "2gb"
 
 # The droplet image to use. Here we are using a base Ubuntu 16.04 LTS image
-create_digitalocean_droplet_droplet_image: "ubuntu-16-04-x64"
+create_digitalocean_droplet_droplet_image: "ubuntu-18-04-x64"
 
 # The DO datacenter region for your droplet
 create_digitalocean_droplet_region: "nyc1"

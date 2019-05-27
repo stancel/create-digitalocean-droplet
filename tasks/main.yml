@@ -1,39 +1,55 @@
 ---
 
 - name: "Create Droplet"
-  digital_ocean: 
+  digital_ocean_droplet: 
     state: present
-    command: droplet
     name: "{{ create_digitalocean_droplet_host_name }}"
-    size_id: "{{ create_digitalocean_droplet_droplet_size }}"
-    region_id: "{{ create_digitalocean_droplet_region }}"
-    image_id: "{{ create_digitalocean_droplet_droplet_image }}"
-    api_token: "{{ create_digitalocean_droplet_do_token }}"
+    size: "{{ create_digitalocean_droplet_droplet_size }}"
+    region: "{{ create_digitalocean_droplet_region }}"
+    image: "{{ create_digitalocean_droplet_droplet_image }}"
+    oauth_token: "{{ create_digitalocean_droplet_do_token }}"
     wait_timeout: "{{ create_digitalocean_droplet_wait_timeout }}"
     unique_name: "{{ create_digitalocean_droplet_unique_name }}"
     private_networking: "{{ create_digitalocean_droplet_private_networking }}"
-    backups_enabled: "{{ create_digitalocean_droplet_backups_enabled }}"
-    ssh_key_ids: "{{ create_digitalocean_droplet_ssh_keys|join(',') }}"
+    backups: "{{ create_digitalocean_droplet_backups_enabled }}"
+    ssh_keys: "{{ create_digitalocean_droplet_ssh_keys|join(',') }}"
   register: my_droplet
+
+
+#- name: "Create Droplet"
+#  digital_ocean: 
+#    state: present
+#    command: droplet
+#    name: "{{ create_digitalocean_droplet_host_name }}"
+#    size_id: "{{ create_digitalocean_droplet_droplet_size }}"
+#    region_id: "{{ create_digitalocean_droplet_region }}"
+#    image_id: "{{ create_digitalocean_droplet_droplet_image }}"
+#    api_token: "{{ create_digitalocean_droplet_do_token }}"
+#    wait_timeout: "{{ create_digitalocean_droplet_wait_timeout }}"
+#    unique_name: "{{ create_digitalocean_droplet_unique_name }}"
+#    private_networking: "{{ create_digitalocean_droplet_private_networking }}"
+#    backups_enabled: "{{ create_digitalocean_droplet_backups_enabled }}"
+#    ssh_key_ids: "{{ create_digitalocean_droplet_ssh_keys|join(',') }}"
+#  register: my_droplet
 
 - name: "Print info about droplet"
   debug:
-   msg: "IP Address is: {{ my_droplet.droplet.ip_address }}"
+   msg: "IP Address is: {{ my_droplet.data.ip_address }}"
 
 - name: "Setting a 'fact' / variable from the filtered registered variable into the droplet_ip variable"
   set_fact:
-    droplet_ip: "{{ my_droplet.droplet.ip_address }}"
+    droplet_ip: "{{ my_droplet.data.ip_address }}"
 
 - name: "Register DNS Entry with DigitalOcean"
   digital_ocean_domain: 
     state: present
     name: "{{ create_digitalocean_droplet_server_fqdn }}"
-    ip: "{{ my_droplet.droplet.ip_address }}"
+    ip: "{{ my_droplet.data.ip_address }}"
     #api_token: "{{ do_token }}"
 
 - name: "Add new host to our Ansible inventory"
   add_host:
-    name: "{{ my_droplet.droplet.ip_address }}"
+    name: "{{ my_droplet.data.ip_address }}"
     #hostname: "{{ my_droplet.droplet.ip_address }}"
     groups: new_server
     ansible_user: root
@@ -43,7 +59,7 @@
        
 - name: "Wait for SSH to come up"
   wait_for:
-    host: "{{ my_droplet.droplet.ip_address }}"
+    host: "{{ my_droplet.data.ip_address }}"
     port: 22
     delay: 60
     timeout: 320
